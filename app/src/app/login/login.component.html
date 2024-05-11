@@ -1,0 +1,89 @@
+<nb-layout>
+  <nb-layout-column>
+    <div
+      class="wrapper login-background"
+      style="
+        background: url('https://source.unsplash.com/1920x2400?nature,river,ocean')
+          no-repeat center center fixed;
+        background-size: cover;
+      "
+    >
+      <div class="login-form container">
+        <h2>Personal Decentralized File Drive</h2>
+        <form [formGroup]="form" (submit)="onLoginSubmit()">
+          <div class="form-group">
+            <label style="color: white" for="username">Username</label>
+            <div
+              [ngClass]="{
+                'has-error':
+                  form.controls.username.errors && form.controls.username.dirty,
+                'has-success':
+                  form.controls.username.valid && form.controls.username.dirty
+              }"
+            >
+              <input
+                class="form-control"
+                type="text"
+                name="username"
+                formControlName="username"
+                autocomplete="off"
+                webauthn
+              />
+              <ul class="help-block">
+                <span
+                  style="color: red"
+                  *ngIf="
+                    form.controls.username.errors?.required &&
+                    form.controls.username.dirty
+                  "
+                >
+                  This field is required.
+                </span>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label style="color: white" for="password">Password</label>
+            <div
+              [ngClass]="{
+                'has-error':
+                  form.controls.password.errors && form.controls.password.dirty,
+                'has-success':
+                  form.controls.password.valid && form.controls.password.dirty
+              }"
+            >
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                formControlName="password"
+                autocomplete="new-password"
+                webauthn
+              />
+              <ul class="help-block">
+                <span
+                  style="color: red"
+                  *ngIf="
+                    form.controls.password.errors?.required &&
+                    form.controls.password.dirty
+                  "
+                >
+                  This field is required.
+                </span>
+              </ul>
+            </div>
+          </div>
+          <button
+            [disabled]="!form.valid || processing"
+            class="btn btn-primary"
+            type="submit"
+            value="Login"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </nb-layout-column>
+</nb-layout>
