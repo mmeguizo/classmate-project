@@ -16,7 +16,6 @@ import { CommonComponent } from "../../shared/common/common.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AuthService } from "../../@core/services/auth.service";
 import { DataTableDirective } from "angular-datatables";
-import { log } from "console";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { UploadsComponent } from "../../shared/uploads/uploads.component";
 
@@ -58,8 +57,6 @@ export class FilesComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.auth.getTokenUserID();
-    console.log(this.id);
-
     this.getAllUsersFiles(this.id);
     this.dtOptions = {
       pagingType: "full_numbers",
@@ -72,7 +69,9 @@ export class FilesComponent implements OnInit {
       .getAllFiles(id)
       .pipe(takeUntil(this.getFileSubscription))
       .subscribe((data: any) => {
-        console.table(data);
+        for (let i = 0; i < data.data.length; i++) {
+          data.data[i]["filetype"] = this.getFileExtension(data.data[i].source);
+        }
         this.data = data.data;
         this.loading = false;
         this.dtTrigger.next();
@@ -98,6 +97,9 @@ export class FilesComponent implements OnInit {
       .getAllFiles(this.id)
       .pipe(takeUntil(this.getFileSubscription))
       .subscribe((data: any) => {
+        for (let i = 0; i < data.data.length; i++) {
+          data.data[i]["filetype"] = this.getFileExtension(data.data[i].source);
+        }
         this.data = data.data;
         this.loading = false;
       });
@@ -175,6 +177,37 @@ export class FilesComponent implements OnInit {
   }
   closeModal() {
     this.activeModal.close();
+  }
+
+  getFileExtension(filetype) {
+    const parts = filetype.split(".");
+    const extension =
+      parts.length === 1 ? "" : parts[parts.length - 1].toLowerCase();
+
+    const fileTypeIcons = {
+      pdf: "fas fa-file-pdf",
+      application: "fas fa-file-pdf",
+      doc: "fas fa-file-word",
+      docx: "fas fa-file-word",
+      xls: "fas fa-file-excel",
+      xlsx: "fas fa-file-excel",
+      ppt: "fas fa-file-powerpoint",
+      pptx: "fas fa-file-powerpoint",
+      txt: "fas fa-file-alt",
+      text: "fas fa-file-alt",
+      png: "fas fa-file-image",
+      jpg: "fas fa-file-image",
+      jpeg: "fas fa-file-image",
+      image: "fas fa-file-image",
+      csv: "fas fa-file-csv",
+      zip: "fas fa-file-archive",
+      rar: "fas fa-file-archive",
+      mp3: "fas fa-file-audio",
+      mp4: "fas fa-file-video",
+      mov: "fas fa-file-video",
+    };
+
+    return fileTypeIcons[extension];
   }
 
   updateCustomer() {}

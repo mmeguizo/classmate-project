@@ -16,7 +16,6 @@ import { CommonComponent } from "../../shared/common/common.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AuthService } from "../../@core/services/auth.service";
 import { DataTableDirective } from "angular-datatables";
-import { log } from "console";
 import { UploadsComponent } from "../uploads/uploads.component";
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -57,7 +56,6 @@ export class FilesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.id);
     this.getAllUsersFiles(this.id);
   }
 
@@ -70,9 +68,6 @@ export class FilesComponent implements OnInit {
       .getAllFiles(id)
       .pipe(takeUntil(this.getFileSubscription))
       .subscribe((data: any) => {
-        console.log("getAllFiles");
-        console.table(data);
-
         this.data = data.data;
         this.loading = false;
         this.dtTrigger.next();

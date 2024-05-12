@@ -65,8 +65,8 @@ app.use(
 );
 
 app.get("*", (req, res) => {
-  // res.sendFile(path.join(__dirname + '/app/dist/index.html'),)
-  res.json({ success: false, message: "Invalid Request" });
+  res.sendFile(path.join(__dirname + "/app/dist/index.html"));
+  // res.json({ success: false, message: "Invalid Request" });
 });
 
 const servers = app.listen(PORT || 52847, () => {

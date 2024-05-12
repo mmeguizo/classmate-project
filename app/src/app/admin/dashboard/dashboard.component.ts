@@ -5,9 +5,10 @@ import { UserService } from "../../@core/services/user.service";
 import { takeUntil } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { CustomerService } from "../../@core/services/customer.service";
-import { log } from "console";
 import { NbThemeService } from "@nebular/theme";
 import { takeWhile } from "rxjs/operators";
+import { FileService } from "../../@core/services/file.service";
+import { AuthService } from "../../@core/services/auth.service";
 
 interface CardSettings {
   title: string;
@@ -82,15 +83,18 @@ export class DashboardComponent implements OnInit {
     corporate: CardSettings[];
     dark: CardSettings[];
   };
+  id: string;
 
   constructor(
     public user: UserService,
-    public customer: CustomerService,
-    private themeService: NbThemeService
+    public customer: FileService,
+    private themeService: NbThemeService,
+    public auth: AuthService
   ) {
     this.date = new Date();
     this.setCurrentTime();
     this.timerId = this.updateTime();
+    this.id = this.auth.getTokenUserID();
   }
 
   ngOnInit(): void {
@@ -177,17 +181,34 @@ export class DashboardComponent implements OnInit {
   }
   getAllCustomer() {
     this.customer
-      .getAllCustomers()
+      .getAllFiles(this.id)
       .pipe(takeUntil(this.getSubscription))
       .subscribe((data: any) => {
-        console.log("getAllCustomer");
-        console.log(data);
-
-        this.customerData = data.customer.length;
+        this.customerData = data.data.length;
       });
   }
 
   ngOnDestroy() {
     this.getSubscription.unsubscribe();
   }
+
+  /*
+   getAllUsersFiles(id = null) {
+    this.file
+      .getAllFiles(id)
+      .pipe(takeUntil(this.getFileSubscription))
+      .subscribe((data: any) => {
+        for (let i = 0; i < data.data.length; i++) {
+          console.log(data.data[i].filetype);
+          data.data[i]["filetype"] = this.getFileExtension(data.data[i].source);
+        }
+        console.log(data.data);
+
+        this.data = data.data;
+        this.loading = false;
+        this.dtTrigger.next();
+      });
+  }
+
+  */
 }

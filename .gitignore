@@ -1,5 +1,5 @@
 node_modules/*
 .env
 uploads
-images
+images/*
 # testing against ignore

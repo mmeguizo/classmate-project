@@ -49,15 +49,17 @@
                           this.auth.domain + '/images/files/' + file.source
                         "
                         target="_blank"
-                        ><i class="fas fa-file display-4"></i
-                      ></a>
-                      <strong> &nbsp; : {{ file.filetype | uppercase }}</strong>
+                      >
+                        <i [ngClass]="file.filetype + ' display-4 '"></i>
+                        <!-- <i class="fas fa-file display-4"></i> -->
+                      </a>
+                      <!-- <strong> &nbsp; : {{ file.filetype | uppercase }}</strong> -->
                     </span>
                   </td>
                   <td scope="col" id="options">
                     <span>
                       <nb-action
-                        nbPopover="Delete User"
+                        nbPopover="Delete File"
                         nbPopoverTrigger="hint"
                         nbPopoverPlacement="bottom"
                         (click)="
@@ -65,7 +67,7 @@
                         "
                         ><nb-icon
                           id="deleteUser"
-                          class="active iconDelete"
+                          class="active iconDelete danger"
                           icon="trash-2-outline"
                         ></nb-icon
                       ></nb-action>
