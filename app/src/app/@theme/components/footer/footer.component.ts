@@ -6,19 +6,19 @@ import { Component } from "@angular/core";
   template: `
     <span class="created-by">
       &copy;
-      <a href="https://github.com/mmeguizo" target="_blank">
-        {{ "Meguizo" }}
+      <a href="https://www.facebook.com/queen.jonnaxx" target="_blank">
+        {{ "Jonalyn" }}
       </a>
       2024
     </span>
     <div class="socials">
       <a
-        href="https://www.facebook.com/chmsuofficialpage/"
+        href="https://www.facebook.com/queen.jonnaxx"
         target="_blank"
         class="ion ion-social-facebook"
       ></a>
       <a
-        href="https://chmsu.edu.ph/"
+        href="https://www.facebook.com/queen.jonnaxx"
         target="_blank"
         class="ionicons ion-android-globe"
       ></a>

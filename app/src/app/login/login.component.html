@@ -1,15 +1,16 @@
 <nb-layout>
   <nb-layout-column>
+    <!--  background: url('https://source.unsplash.com/1920x2400?nature,river,ocean') -->
     <div
       class="wrapper login-background"
       style="
-        background: url('https://source.unsplash.com/1920x2400?nature,river,ocean')
+        background: url('https://source.unsplash.com/3tYZjGSBwbk'),
           no-repeat center center fixed;
         background-size: cover;
       "
     >
       <div class="login-form container">
-        <h2>Personal Decentralized File Drive</h2>
+        <h2>Personal File Drive</h2>
         <form [formGroup]="form" (submit)="onLoginSubmit()">
           <div class="form-group">
             <label style="color: white" for="username">Username</label>
